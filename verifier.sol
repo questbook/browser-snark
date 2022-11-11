@@ -11,7 +11,7 @@
 //
 //
 // SPDX-License-Identifier: GPL-3.0
-pragma solidity ^0.6.11;
+pragma solidity >=0.7.0 <0.9.0;
 library Pairing {
     struct G1Point {
         uint X;
@@ -262,4 +262,21 @@ contract Verifier {
             return false;
         }
     }
+
+    mapping (uint => bool) expiredNonce;
+    function isNonceUsed(uint nonce) public view returns(bool){
+        return expiredNonce[nonce];
+    }
+
+    function verifyWithNonce(            
+            uint[2] memory a,
+            uint[2][2] memory b,
+            uint[2] memory c,
+            uint[3] memory input
+    ) external returns(bool) {
+        require(!expiredNonce[input[1]], "Nonce already used");
+        expiredNonce[input[1]] = true;
+        return verifyProof(a, b, c, input);
+    }
+
 }

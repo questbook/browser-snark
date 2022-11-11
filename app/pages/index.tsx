@@ -1,9 +1,94 @@
 import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
-import { generateProof } from '../preimage-snark'
+import { Preimage } from '../browser-snark'
+import { ethers } from "ethers"
+
 
 export default function Home() {
+
+  const callScwFunction = async () => {
+    const provider = new ethers.providers.Web3Provider(window.ethereum)
+    const preimage = new Preimage(provider);
+    const EXPECTED_HASH = preimage.hash(5);
+    const proof = await preimage.generateProof(5, EXPECTED_HASH);
+    console.log("Proof generated", proof);
+    const abi = [
+      {
+        "inputs": [],
+        "stateMutability": "nonpayable",
+        "type": "constructor"
+      },
+      {
+        "inputs": [
+          {
+            "internalType": "uint256",
+            "name": "num",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256[2]",
+            "name": "a",
+            "type": "uint256[2]"
+          },
+          {
+            "internalType": "uint256[2][2]",
+            "name": "b",
+            "type": "uint256[2][2]"
+          },
+          {
+            "internalType": "uint256[2]",
+            "name": "c",
+            "type": "uint256[2]"
+          },
+          {
+            "internalType": "uint256[3]",
+            "name": "input",
+            "type": "uint256[3]"
+          }
+        ],
+        "name": "updateNumber",
+        "outputs": [
+          {
+            "internalType": "bool",
+            "name": "",
+            "type": "bool"
+          }
+        ],
+        "stateMutability": "nonpayable",
+        "type": "function"
+      },
+      {
+        "inputs": [],
+        "name": "getNumber",
+        "outputs": [
+          {
+            "internalType": "uint256",
+            "name": "",
+            "type": "uint256"
+          }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+      }
+    ];
+
+    // MetaMask requires requesting permission to connect users accounts
+    await provider.send("eth_requestAccounts", []);
+
+    // The MetaMask plugin also allows signing transactions to
+    // send ether and pay to change state within the blockchain.
+    // For this, you need the account signer...
+    const signer = provider.getSigner()
+
+    const contract = new ethers.Contract("0xE6931683F58648F630F4Fe766dF8eEF840eD2FCD", abi, signer);
+    const contractWithSigner = contract.connect(signer);
+    const tx = await contractWithSigner.updateNumber(2, proof.a, proof.b, proof.c, proof.input);
+    console.log("Transaction sent", tx);
+
+
+  }
+
   return (
     <div className={styles.container}>
       <Head>
@@ -16,15 +101,7 @@ export default function Home() {
         <h1 className={styles.title}>
           Welcome to <a href="https://nextjs.org">Next.js!</a>
         </h1>
-        <button onClick={() => generateProof(
-          {
-            "preimage": "5",
-            "required": "19065150524771031435284970883882288895168425523179566388456001105768498065277",
-            "nonce" : "1"
-        }, 
-        '/main.wasm',
-        '/main_0001.zkey'
-        )}>Click Me</button>
+        <button onClick={() => callScwFunction()}>Click Me</button>
       </main>
 
       <footer className={styles.footer}>
