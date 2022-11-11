@@ -1,0 +1,25 @@
+{
+  "name": "browser-snark",
+  "version": "1.0.2",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/questbook/browser-snark.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/questbook/browser-snark/issues"
+  },
+  "homepage": "https://github.com/questbook/browser-snark#readme",
+  "dependencies": {
+    "assert": "^2.0.0",
+    "base64-arraybuffer": "^1.0.2",
+    "ffjavascript": "^0.2.57",
+    "snarkjs": "^0.5.0"
+  }
+}

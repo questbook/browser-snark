@@ -1,9 +1,9 @@
 import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
-import { Preimage } from '../browser-snark'
 import { ethers } from "ethers"
 
+const { Preimage } = require('browser-snark');
 
 export default function Home() {
 

@@ -1,0 +1,18 @@
+{
+    "1":{        
+        "pairing_contract": "TODO",
+        "verifier_contract": "TODO"
+    },
+    "5": {
+        "pairing_contract": "0xc2a050608D54B36777AFbed4Eec848Eba474D309",
+        "verifier_contract": "0x9247fbEB6195dF258A701D5749dD21b4696c1C22"
+    },
+    "10": {
+        "pairing_contract": "0xebD3050F484ED2f5E196c214ADd3453747fb662d",
+        "verifier_contract": "0x7BA977e10e6f0EB05f3D6f4C1AB44626258e1d83"
+    },
+    "137": {
+        "pairing_contract": "0xDBE0acDC861c2CDCDB97AcfB89311520A2992516",
+        "verifier_contract": "0xa932B4b9eeE2B098766828aa6E0803820ad3a064"
+    }
+}
