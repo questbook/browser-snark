@@ -125,9 +125,8 @@ Submit transaction with proof
 ```
     contractWithSigner.yourFunction(yourParam1, yourParam2, proof.a, proof.b, proof.c, proof.input)
 ```
-
- 
-
+##
+For an example usage you can see the `app/` directory.
 
 ## Todo
 - Generate nonce from msg.sender
