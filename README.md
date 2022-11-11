@@ -130,3 +130,7 @@ For an example usage you can see the `app/` directory.
 
 ## Todo
 - Generate nonce from msg.sender
+
+# Credits
+- Huge shout out to Vivian Plasencia for [this](https://vivianblog.hashnode.dev/how-to-create-a-zero-knowledge-dapp-from-zero-to-production#heading-13-add-some-libraries) excellent explanation of using snarkjs on browser
+- Jordi Baylina for [this implementation](https://twitter.com/jbaylina/status/1135938869860491266) of Poseidon Hash in Javascript  
